@@ -11,11 +11,11 @@ queue<string> playlist;
 
 void FeedSongs(){
 cout<<"Enter Songs:(Press -1 to end)\n";
-while(Songs.back()!="-1"){
-    string s;
+  string s;
+while(s!="-1"){
     cin>>s;
     if(s!="-1")
-    Songs.push_back(s);
+    Songs.push(s);
 }
     cout<<"Library of songs created\n";
 }
@@ -24,9 +24,12 @@ while(Songs.back()!="-1"){
 //Searching song in queue
 bool Ispresent(string t){
 int n=Songs.size();
+queue<string>song = Songs;
 for(int i=0;i<n;i++){
-    if(Songs[i]==t)
+    if(song.front()==t)
       return true;
+      else
+       song.pop();
 }
       return false;
 
@@ -34,19 +37,18 @@ for(int i=0;i<n;i++){
 //Create playlist
 void CreatePlaylist(){
 cout<<"Enter Songs for Playlist(Press -1 to end)\n";
-string s="";
-while(s!="-1"){
-    cout<<"Enter songs to add";
-    string s1;
+string s1="";
+while(s1!="-1"){
+    cout<<"Enter songs to add\n";
     cin>>s1;
     if(s1!="-1"){
     if(Ispresent(s1))
-    playlist.push_back(s1);
+    playlist.push(s1);
     else
     cout<<"Song not found";
     }
     else
-        cout<<"Playlist created";  
+        cout<<"Playlist created\n";  
 }
 }
 
@@ -64,6 +66,7 @@ void PlayPrev(int n){
     
         string temp=S2.top();
         S2.pop();
+        cout<<"Now playing"<<temp<<"\n";
         
         while(!S2.empty()){
         S1.push(S2.top());
@@ -71,6 +74,7 @@ void PlayPrev(int n){
     }
      //since prev song is the most recent song
     S1.push(temp);
+}
 }
 
 
@@ -82,18 +86,25 @@ while(action!='e' && i<size){
     cout<<"Enter the action\n";
     cin>>action;
     if(action=='n'){
-    S1.push(playlist[i++]);
+    S1.push(playlist.front());
+     cout<<"Now playing"<<playlist.front()<<"\n";
+    playlist.pop();
 
     }
    
     if(action=='p'){
+        int prev_count;
         cin>>prev_count;
+        if(prev_count>0)
         PlayPrev(prev_count);
+        else
+        cout<<"Enter valid prev song";
     }
     
 }
-
 }
+
+
 
 #include <iostream>
 using namespace std;
