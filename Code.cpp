@@ -1,7 +1,9 @@
 
 #include<iostream>
+#include<queue>
+#include<stack>
 using namespace std;
-stack<int> S1,S2;
+stack<string> S1,S2;
 //S1 keeps track of prev played Songs
 //S2 is an auxilary stack
 queue<string>Songs;
@@ -12,8 +14,10 @@ cout<<"Enter Songs:(Press -1 to end)\n";
 while(Songs.back()!="-1"){
     string s;
     cin>>s;
+    if(s!="-1")
     Songs.push_back(s);
 }
+    cout<<"Library of songs created\n";
 }
 
 
@@ -35,11 +39,15 @@ while(s!="-1"){
     cout<<"Enter songs to add";
     string s1;
     cin>>s1;
+    if(s1!="-1"){
     if(Ispresent(s1))
     playlist.push_back(s1);
     else
     cout<<"Song not found";
-    
+    }
+    else
+        cout<<"Playlist created";  
+}
 }
 
 
@@ -68,20 +76,21 @@ void PlayPrev(int n){
 
 void Play(){
 char action='n';
-
-while(action!='e'){
+int i=0; 
+ int size=playlist.size();
+while(action!='e' && i<size){
+    cout<<"Enter the action\n";
+    cin>>action;
     if(action=='n'){
-    S1.push(playlist->val);
-    playlist=playlist->next;
+    S1.push(playlist[i++]);
+
     }
-    
+   
     if(action=='p'){
         cin>>prev_count;
         PlayPrev(prev_count);
     }
     
-    if(action=='n')
-     playlist=playlist->next;
 }
 
 }
